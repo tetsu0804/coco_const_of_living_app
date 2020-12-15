@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_142054) do
+ActiveRecord::Schema.define(version: 2020_12_15_075756) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "category_name", null: false
@@ -18,4 +18,13 @@ ActiveRecord::Schema.define(version: 2020_12_14_142054) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sub_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "sub_category_name", null: false
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_sub_categories_on_category_id"
+  end
+
+  add_foreign_key "sub_categories", "categories"
 end
