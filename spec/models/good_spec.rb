@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Good, type: :model do
   before do
     @dogg_food = FactoryBot.create(:sub_category)
-    @royal_canan = Good.create(goods_name: 'ロイヤルカナン', price: 4000, sub_category_id: @dogg_food.id)
-    @cumcum_gam = Good.create(goods_name: 'カムカムガム', price: 800, sub_category_id: @dogg_food.id)
+    @royal_canan = Good.create(goods_name: 'ロイヤルカナン', price: 4000, sub_category_id: @dogg_food.id, create_day: Time.parse('2020-12-15 00:00:00 +00:00'))
+    @cumcum_gam = Good.create(goods_name: 'カムカムガム', price: 800, sub_category_id: @dogg_food.id, create_day: Time.parse('2020-12-15 00:00:00 +00:00'))
   end
 
   context '成功' do
@@ -14,7 +14,7 @@ RSpec.describe Good, type: :model do
     end
 
     it 'goods_nameが複数あっても' do
-      @royal_canan2 = Good.create(goods_name: 'ロイヤルカナン', price: 4000, sub_category_id: @dogg_food.id)
+      @royal_canan2 = Good.create(goods_name: 'ロイヤルカナン', price: 4000, sub_category_id: @dogg_food.id, create_day: Time.parse('2020-12-15 00:00:00 +00:00'))
       expect(@royal_canan2).to be_valid
       expect(Good.count).to eq(3)
     end
@@ -40,6 +40,13 @@ RSpec.describe Good, type: :model do
       expect(@cumcum_gam).to_not be_valid
     end
 
+    it 'create_dayが空文字なら' do
+      @royal_canan.create_day = ''
+      @cumcum_gam.create_day = ''
+      expect(@royal_canan).to_not be_valid
+      expect(@cumcum_gam).to_not be_valid
+    end
+
     it 'goods_nameが51文字なら' do
       @royal_canan.goods_name = 'a' * 51
       @cumcum_gam.goods_name = 'a' * 51
@@ -53,5 +60,6 @@ RSpec.describe Good, type: :model do
       expect(@royal_canan).to_not be_valid
       expect(@cumcum_gam).to_not be_valid
     end
+
   end
 end

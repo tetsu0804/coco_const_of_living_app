@@ -3,4 +3,5 @@ class Good < ApplicationRecord
 
   validates :goods_name, presence: true, length: { maximum: 50}
   validates :price, presence: true, numericality: { only_integer: true}
+  validates :create_day, presence: true
 end
