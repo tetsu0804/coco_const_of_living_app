@@ -61,7 +61,12 @@
         return this.subCategoryIndex(this.categoryIndex)
       },
       deleteSub(result, index) {
-        this.$store.dispatch('fetchDeleteSubCategory', { subCategory: result, index: index })
+        axios.delete(`/api/v1/sub_category/${result}`)
+        .then(response => {
+          this.$store.dispatch('fetchDeleteSubCategory', { subCategory: result, index: index })
+          this.error_message = `サブカテゴリ: ${result} を削除しました。`
+        })
+
       }
     }
   }
