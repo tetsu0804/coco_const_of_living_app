@@ -15,7 +15,11 @@ export default new Vuex.Store({
     },
     subCategoryIndex(state) {
       return index => {
-        return state.categorySubCategoryArray[index].sub
+        if(state.categorySubCategoryArray[index]) {
+          return state.categorySubCategoryArray[index].sub
+        } else {
+          return
+        }
       }
     }
   },
@@ -65,6 +69,10 @@ export default new Vuex.Store({
           return result
         }
       })
+    },
+    deleteAllCategory( state ) {
+      state.categorySubCategoryArray.splice(0, state.categorySubCategoryArray.length)
+      state.categoryNameArray.splice(0, state.categoryNameArray.length)
     }
   },
   actions: {
@@ -76,6 +84,9 @@ export default new Vuex.Store({
     },
     fetchDeleteSubCategory({ commit }, { subCategory: subCategory, index: index }) {
       commit('deleteSubCategory', { subCategory: subCategory, index: index })
+    },
+    fetchDeleteAllCategory({ commit }) {
+      commit('deleteAllCategory')
     }
   },
   plugins: [
