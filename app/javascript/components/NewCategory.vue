@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div v-if="error_message">{{ error_message }}</div>
     <label>カテゴリ:
       <input type="text" v-model="categoryName"></input>
     </label>
@@ -32,6 +33,7 @@
         categoryName: '',
         subCategoryName: '',
         categoryIndex: 0,
+        error_message: ''
       }
     },
     computed: mapGetters(['categoryAndSub', 'subCategoryIndex']),
@@ -47,7 +49,12 @@
         })
       },
       deleteCategory(result) {
-        this.$store.dispatch('fetchDeleteCategory', result)
+        axios.delete(`/api/v1/category/${result}`)
+        .then(response => {
+          this.$store.dispatch('fetchDeleteCategory', result)
+          this.error_message = `カテゴリ: ${result} を削除しました。`
+        })
+
       },
       subCategoryDisplay(index) {
         this.categoryIndex = index

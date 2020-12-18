@@ -26,6 +26,12 @@ class Api::V1::CategoriesController < ApplicationController
     end
   end
 
+  def destroy
+    category = Category.find_by(category_name: params[:category_name])
+    category.destroy
+    head :no_content
+  end
+
   private
 
     def category_params
