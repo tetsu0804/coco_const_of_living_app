@@ -1,6 +1,9 @@
 <template>
   <div class="all-body">
-    <b-row>
+    <b-row class="mt-5">
+      <b-col><router-link to="/" exact><b-icon font-scale="1.5" variant="white" icon="house-door"></b-icon></router-link></b-col>
+    </b-row>
+    <b-row class="mt-2">
       <b-col class="title">カテゴリ作成</b-col>
     </b-row>
 
@@ -44,7 +47,7 @@
           </b-form-group>
         </b-col>
         <b-col cols="3" class="text-center category-btn pl-0">
-          <b-button class="border-white" type="submit" variant="success">登録</b-button>
+          <b-button id="category-create" class="border-white" type="submit" variant="success">登録</b-button>
         </b-col>
       </b-row>
     </b-form>
