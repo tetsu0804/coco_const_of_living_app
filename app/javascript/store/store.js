@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     categorySubCategoryArray: [],
     categoryNameArray: [],
+    goods: []
   },
   getters: {
     categoryAndSub(state) {
@@ -21,6 +22,14 @@ export default new Vuex.Store({
           return
         }
       }
+    },
+    homeUseCategory(state) {
+      let categories = []
+      state.categorySubCategoryArray.forEach( result => {
+        let valueText = { value: result.sub, text: result.category }
+        categories.push(valueText)
+      })
+      return categories
     }
   },
   mutations: {
@@ -50,6 +59,10 @@ export default new Vuex.Store({
         state.categorySubCategoryArray.push(categoryName)
       }
     },
+    createGoods(state, { id: id, goods_name: goods_name, price: price, create_day: create_day, sub_category: sub_category, category: category }) {
+      let get_goods = { id: id, goods_name: goods_name, price: price, create_day: create_day, sub_category: sub_category, category: category }
+      state.goods.unshift(get_goods)
+    },
     deleteCategory(state, category) {
       state.categorySubCategoryArray = state.categorySubCategoryArray.filter( result => {
         if(result.category !== category) {
@@ -70,23 +83,42 @@ export default new Vuex.Store({
         }
       })
     },
-    deleteAllCategory( state ) {
+    deleteAllCategory(state) {
       state.categorySubCategoryArray.splice(0, state.categorySubCategoryArray.length)
       state.categoryNameArray.splice(0, state.categoryNameArray.length)
+    },
+    deleteGoodsId(state, id) {
+      state.goods = state.goods.filter( result => {
+        if( id !== result.id) {
+          return result
+        }
+      })
+    },
+    deleteAllGoos(state) {
+      state.goods.splice(0, state.goods.length)
     }
   },
   actions: {
     fetchCreateCategorySubCategory( {commit}, {category: category, sub: sub} ) {
       commit('createCategorySubCategory', {category: category, sub: sub})
     },
-    fetchDeleteCategory({ commit }, category) {
+    fetchCreateGoods( {commit}, { id: id, goods_name: goods_name, price: price, create_day: create_day, sub_category: sub_category, category: category }) {
+      commit('createGoods', { id: id, goods_name: goods_name, price: price, create_day: create_day, sub_category: sub_category, category: category })
+    },
+    fetchDeleteCategory({commit}, category) {
       commit('deleteCategory', category)
     },
-    fetchDeleteSubCategory({ commit }, { subCategory: subCategory, index: index }) {
+    fetchDeleteSubCategory({commit}, { subCategory: subCategory, index: index }) {
       commit('deleteSubCategory', { subCategory: subCategory, index: index })
     },
-    fetchDeleteAllCategory({ commit }) {
+    fetchDeleteAllCategory({commit}) {
       commit('deleteAllCategory')
+    },
+    fetchDeleteGoodsId({commit}, id) {
+      commit('deleteGoodsId', id)
+    },
+    fetchDeleteAllGoos({commit}) {
+      commit('deleteAllGoos')
     }
   },
   plugins: [
