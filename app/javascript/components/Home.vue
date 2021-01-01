@@ -21,6 +21,7 @@
         <b-modal id="modal-no-backdrop" hide-backdrop content-class="shadow" title="購入品追加" hide-footer>
           <b-form>
             <b-form-select v-model="subCategories" :options="categoryGetters" :select-size="4"></b-form-select>
+            
             <b-form-select class="mt-2" v-model="selected" :options="subCategories" :select-size="4"></b-form-select>
             <b-row>
               <b-col> {{ selected }} </b-col>
