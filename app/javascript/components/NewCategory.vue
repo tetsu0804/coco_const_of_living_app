@@ -46,8 +46,8 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col cols="3" class="text-center category-btn pl-0">
-          <b-button id="category-create" class="border-white" type="submit" variant="success">登録</b-button>
+        <b-col cols="3" class="div-category-create-btn text-center category-btn pl-0">
+          <b-button id="category-create" class="category-register-btn border-white" type="submit" variant="success">登録</b-button>
         </b-col>
       </b-row>
     </b-form>
@@ -58,8 +58,8 @@
 
       <b-row>
         <b-col cols="12">
-          <b-list-group class="list-group-horizontal mt-1">
-            <b-list-group-item v-for="(result, index) in categoryAndSub" :key="result.category" class="text-info rounded mr-2 text-center">{{ result.category }}
+          <b-list-group class="categories list-group-horizontal mt-1">
+            <b-list-group-item v-for="(result, index) in categoryAndSub" :key="result.category" class="cateogry-list text-info rounded mr-2 text-center">{{ result.category }}
               <br>
               <b-button class="mt-1" size="sm" variant="success" v-on:click="subCategoryDisplay(index)">
                 <b-icon icon="justify" aria-hidden="true"></b-icon>
@@ -76,8 +76,8 @@
       <b-row class="mt-5">
         <b-col class="text-white">サブカテゴリ一覧</b-col>
       </b-row>
-      <b-list-group class="list-group-horizontal mt-1">
-       <b-list-group-item class="text-info mr-3 rounded text-center" v-for="sub in subCategoryIndex(categoryIndex)" :key="sub">{{ sub }}
+      <b-list-group class="subcategories list-group-horizontal mt-1">
+       <b-list-group-item class="subcategory-list text-info mr-3 rounded text-center" v-for="sub in subCategoryIndex(categoryIndex)" :key="sub">{{ sub }}
        <br>
        <b-button  class="mt-1" variant="danger" v-on:click="deleteSub(sub, categoryIndex)">
          <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
