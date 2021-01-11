@@ -60,7 +60,7 @@
               <b-button block v-on:click="handleCancel">キャンセル</b-button>
             </b-col>
             <b-col cols="6">
-              <b-button block v-on:click="handleOk" variant="success">登録</b-button>
+              <b-button block id="goods-create" v-on:click="handleOk" variant="success">登録</b-button>
             </b-col>
           </b-row>
         </b-form>
@@ -75,15 +75,17 @@
     props: ["homeUseCategory", "selected", "subCategories", "dateValue", "goods_price", "goods_name"],
     data() {
       return {
-        error: ''
+        error: '',
+        date: null
       }
+    },
+    mounted() {
     },
     methods: {
       handleOk() {
         this.dateParse(this.dateValue)
-        axios.post('/api/v1/goods', { goods_name: this.goods_name, price: this.goods_price, create_day: this.dateValue, sub_category_name: this.selected})
+        axios.post('/api/v1/goods', { goods_name: this.goods_name, price: this.goods_price, create_day: this.date, sub_category_name: this.selected})
         .then(response => {
-        debugger
           this.$store.dispatch('fetchCreateGoods', { id: response.data.goods.id, goods_name: response.data.goods.goods_name, price: response.data.goods.price, create_day: response.data.goods.create_day, sub_category: response.data.sub_category, category: response.data.category })
 
           this.$emit('childSuccessMessage', `${response.data.goods.goods_name} を追加しました。`)
@@ -111,7 +113,7 @@
       },
       dateParse(date) {
         let split_date = date.split('-')
-        this.dateValue = new Date(`${split_date[0]} ${split_date[1]} ${split_date[2]}`).toLocaleString()
+        return this.date = new Date(`${split_date[0]} ${split_date[1]} ${split_date[2]}`).toLocaleString()
       }
     }
   }

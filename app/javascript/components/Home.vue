@@ -23,7 +23,6 @@
       :dateValue="dateValue"
       :goods_price="goods_price"
       :goods_name="goods_name"
-      :error_message="error_message"
       v-on:childSuccessMessage="MessageSuccess"
       v-on:childErrorMessage="MessageError"
     ></GoodsCreateModal>
