@@ -1,29 +1,26 @@
 <template>
   <div>
+    <AlertMessage
+      :success_message="success_message"
+      :error_message="error_message"
+    >
+    </AlertMessage>
 
-    <b-row>
-      <b-col class="mt-5 h3 text-center text-white">{{yearAndMonth(num)[1]}}の合計金額 ({{ yearAndMonth(num)[0]}})</b-col>
-    </b-row>
+    <HomeChildDisplay>
+      <template slot="monthDisplay">
+      {{yearAndMonth(num)[1]}}の合計金額 ({{ yearAndMonth(num)[0]}})
+      </template>
 
-    <b-row>
-      <b-col cols="2" md="3" class="d-flex align-items-center justify-content-end">
-        <b-icon icon="arrow-left-circle-fill" scale="3" variant="white" v-on:click="nextMonth" v-if="nextHideOrDisplay"></b-icon>
-      </b-col>
-      <b-col cols="8" md="6" class="text-center">
-        <b-col class="display-2 text-white">{{ priceMonthGoodsArray(num)}}円</b-col>
-      </b-col>
-      <b-col cols="2" md="3" class="d-flex align-items-center  justify-content-start">
-        <b-icon icon="arrow-right-circle-fill" scale="3" variant="white" v-on:click="prevMonth" v-if="prevHideOrDisplay"></b-icon>
-      </b-col>
-    </b-row>
-
-    <b-row v-if="success_message">
-      <b-col><b-alert show variant="success">{{ success_message }}</b-alert></b-col>
-    </b-row>
-
-    <b-row v-if="error_message">
-      <b-col><b-alert show variant="danger">{{ error_message }}</b-alert></b-col>
-    </b-row>
+      <NextPrevPriceDisplay
+        :priceMonthGoodsArray="priceMonthGoodsArray"
+        :num="num"
+        :prevHideOrDisplay="prevHideOrDisplay"
+        :nextHideOrDisplay="nextHideOrDisplay"
+        v-on:numPlus="num += $event"
+        v-on:numPull="num -= $event"
+      >
+      </NextPrevPriceDisplay>
+    </HomeChildDisplay>
 
     <b-row>
       <b-col sm="12" offset-md="1" md="10" offset-lg="2" lg="8" class="mt-5">
@@ -31,11 +28,12 @@
       </b-col>
     </b-row>
 
-    <b-row>
-      <b-col offset="7" offset-xl="8" class="mt-2">
-        <router-link to="#" class="text-white" style="text-decoration: none;">{{ monthLastGoods(num) }}</router-link>
-      </b-col>
-    </b-row>
+    <DetailsBtn
+      :monthLastGoods="monthLastGoods"
+      :num="num"
+    >
+    </DetailsBtn>
+
     <GoodsCreateModal
       :homeUseCategory="homeUseCategory"
       :selected="selected"
@@ -46,6 +44,7 @@
       v-on:childSuccessMessage="MessageSuccess"
       v-on:childErrorMessage="MessageError"
     ></GoodsCreateModal>
+
     <b-row>
       <router-link to='/new_category' exact tag='button' class="bg-success text-white border-white rounded">new Category </router-link>
     </b-row>
@@ -56,10 +55,17 @@
 <script>
   import { mapGetters } from 'vuex'
   import GoodsCreateModal from './Home/GoodsCreateModal.vue'
-
+  import HomeChildDisplay from './Home/HomeChildDisplay.vue'
+  import NextPrevPriceDisplay from './Home/NextPrevPriceDisplay.vue'
+  import AlertMessage from './Home/AlertMessage.vue'
+  import DetailsBtn from './Home/DetailsBtn.vue'
   export default {
     components: {
-      GoodsCreateModal
+      GoodsCreateModal,
+      HomeChildDisplay,
+      NextPrevPriceDisplay,
+      AlertMessage,
+      DetailsBtn
     },
     data() {
       return {
@@ -74,7 +80,7 @@
         this_date: new Date,
         this_month: null,
         this_year: null,
-        num: 0,
+        num: 0
       }
     },
     created() {
@@ -93,7 +99,6 @@
       },
       ...mapGetters(['homeUseCategory', 'monthGoodsArray', 'priceMonthGoodsArray', 'monthLastGoods', 'yearAndMonth', 'preveTrueOrFalse'])},
     mounted() {
-this.preveTrueOrFalse(this.num)
     },
     methods: {
       MessageSuccess(e) {
@@ -101,12 +106,6 @@ this.preveTrueOrFalse(this.num)
       },
       MessageError(e) {
         this.error_message = e
-      },
-      prevMonth() {
-        this.num ++
-      },
-      nextMonth() {
-        this.num --
       }
     }
   }

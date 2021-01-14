@@ -120,7 +120,6 @@ export default new Vuex.Store({
 
       return (this_number) => {
         if(this_number === difference_month_number) {
-
           return false
         } else {
           return true
