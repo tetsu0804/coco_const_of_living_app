@@ -99,6 +99,7 @@
       },
       ...mapGetters(['homeUseCategory', 'monthGoodsArray', 'priceMonthGoodsArray', 'monthLastGoods', 'yearAndMonth', 'preveTrueOrFalse'])},
     mounted() {
+    debugger
     },
     methods: {
       MessageSuccess(e) {
