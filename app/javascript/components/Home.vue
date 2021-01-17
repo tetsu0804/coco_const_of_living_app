@@ -45,10 +45,6 @@
       v-on:childErrorMessage="MessageError"
     ></GoodsCreateModal>
 
-    <b-row>
-      <router-link to='/new_category' exact tag='button' class="bg-success text-white border-white rounded">new Category </router-link>
-    </b-row>
-
   </div>
 </template>
 
@@ -99,7 +95,6 @@
       },
       ...mapGetters(['homeUseCategory', 'monthGoodsArray', 'priceMonthGoodsArray', 'monthLastGoods', 'yearAndMonth', 'preveTrueOrFalse'])},
     mounted() {
-    debugger
     },
     methods: {
       MessageSuccess(e) {

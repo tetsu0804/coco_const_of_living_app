@@ -102,8 +102,8 @@ describe('gettersのテスト', () => {
 
   describe('monthLastGoods', () => {
     it('確認', () => {
-      // const last_goods = getters.getters.monthLastGoods(state, getters.getters)
-      // expect(last_goods(0)).toBe('最後のお買い物はロイヤルカナン')
+      const last_goods = getters.getters.monthLastGoods(state, getters.getters)
+      expect(last_goods(0)).toBe('最後のお買い物はロイヤルカナン')
     })
   })
 
@@ -111,7 +111,6 @@ describe('gettersのテスト', () => {
     let formatYear = 'YYYY'
     let formatMonth = 'MM'
     it('確認', () => {
-      console.log(this_month)
       const year = this_month.getFullYear()
       const month = 1 + this_month.getMonth()
       const last_month_year = last_month.getFullYear()
@@ -131,9 +130,9 @@ describe('gettersのテスト', () => {
 
   describe('priceMonthGoodsArray', () => {
     it('確認', () => {
-      // const total_price = getters.getters.priceMonthGoodsArray(state, getters.getters)
-      //
-      // expect(total_price(0)).toBe(5800)
+      const total_price = getters.getters.priceMonthGoodsArray(state, getters.getters)
+
+      expect(total_price(0)).toBe(5800)
     })
   })
 

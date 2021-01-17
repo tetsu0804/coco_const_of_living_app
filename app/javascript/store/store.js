@@ -195,7 +195,6 @@ export default new Vuex.Store({
   },
   actions: {
     fetchCreateCategorySubCategory( {commit}, {category: category, sub: sub} ) {
-      debugger
       commit('createCategorySubCategory', {category: category, sub: sub})
     },
     fetchCreateGoods( {commit}, { id: id, goods_name: goods_name, price: price, create_day: create_day, sub_category: sub_category, category: category }) {

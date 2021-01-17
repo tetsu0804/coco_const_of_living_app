@@ -52,9 +52,10 @@ export default {
       }
     },
     monthLastGoods(state, getters) {
-      return (this_number) => {
-        let this_month = getters.monthGoodsArray(this_number)
+      let this_month_array = getters.monthGoodsArray(state)
 
+      return (this_number) => {
+        let this_month = this_month_array(this_number)
         if(this_month.length > 0) {
           let last_goods = this_month.slice(0, 1)
           return `最後のお買い物は${last_goods[0].goods_name}`
@@ -90,9 +91,10 @@ export default {
       }
     },
     priceMonthGoodsArray(state, getters) {
+      let month_goods = getters.monthGoodsArray(state)
       return (this_number) => {
           let month_total_price = 0
-          let month_goods_array = getters.monthGoodsArray(this_number)
+          let month_goods_array = month_goods(this_number)
           month_goods_array.forEach(result => {
             month_total_price += result.price
           })

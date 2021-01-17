@@ -2,8 +2,13 @@
   <b-row>
     <b-col>
       <b-modal id="modal-no-backdrop" hide-backdrop content-class="shadow" title="購入品追加" hide-footer>
+
+        <b-row class="justify-content-end">
+          <router-link to='/new_category' exact tag='button'  class="border border-success text-success bg-white rounded mr-3">カテゴリの追加</router-link>
+        </b-row>
+
         <b-form>
-          <b-form-select v-model="subCategories" :options="homeUseCategory" :select-size="4"></b-form-select>
+          <b-form-select v-model="subCategories" :options="homeUseCategory" :select-size="4" class="mt-3"></b-form-select>
 
           <b-form-select class="mt-2" v-model="selected" :options="subCategories" :select-size="4"></b-form-select>
           <b-row>
