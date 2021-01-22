@@ -3,6 +3,10 @@ const { VueLoaderPlugin } = require('vue-loader')
 const vue = require('./loaders/vue')
 
 environment.config.merge({
+  performance: {
+    maxEntrypointSize: 500000,
+    maxAssetSize: 500000,
+  },
   devtool: 'cheap-source-map'
 })
 
